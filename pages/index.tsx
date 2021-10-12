@@ -25,27 +25,29 @@ export default function Home() {
 
         const comp = hePutHandler();
 
-        if (value == comp) {
-            alert(`you are out! Your score is ${score}`);
-            // router.reload();
-            setInnings((prevVal) => prevVal + 1);
-            setTarget(score);
-            setScore(0);
-        } else {
-            if (innings == 2) {
-                setTarget((prevVal) => prevVal - value);
+        if (innings == 1) {
+            if (value == comp) {
+                alert(`you are out! Your score is ${score}`);
+                // router.reload();
+                setInnings((prevVal) => prevVal + 1);
+                setTarget(score + 1);
+                setScore(0);
+            } else {
+                setScore((prevVal) => prevVal + value);
             }
-            setScore((prevVal) => prevVal + value);
         }
 
         if (innings == 2) {
             if (target <= 0) {
                 alert("Computer won");
                 router.reload();
-            } else {
+            } else if (value == comp) {
                 alert(`You won`);
                 router.reload();
             }
+
+            setTarget((prevVal) => prevVal - comp);
+            setScore((prevVal) => prevVal + comp);
         }
     };
 
